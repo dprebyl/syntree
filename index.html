@@ -41,7 +41,7 @@
 							</span></td>
 						</tr>
 						<tr>
-							<td align="left">Resolution:</td>
+							<td align="left">Resolution <abbr title="Higher values produce a better looking image, but lowering this while editing can improve performance." data-toggle="tooltip" data-placement="right">(?)</abbr>:</td>
 							<td><div id="resolution-slider"></div></td>
 						</tr>
 						<tr>
@@ -155,6 +155,9 @@
 			$("#font-size-slider").slider({value: 12, min: 8, max: 16, step: 1});
 			$("#vert-space-slider").slider({value: 35, min: 35, max: 70, step: 5});
 			$("#hor-space-slider").slider({value: 10, min: 10, max: 50, step: 5});
+			$(function () {
+			  $('[data-toggle="tooltip"]').tooltip()
+			});
 			
 			try {
 				var qs = decodeURIComponent(window.location.hash.slice(1));
