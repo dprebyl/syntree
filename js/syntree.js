@@ -2,9 +2,10 @@
 // MIT license
 
 var debug = true;
-var margin = 15; // Number of pixels from tree to edge on each side.
-var padding_above_text = 6; // Lines will end this many pixels above text.
-var padding_below_text = 6;
+var scale = 2; // Global scale factor of image
+var margin = 15*scale; // Number of pixels from tree to edge on each side.
+var padding_above_text = 6*scale; // Lines will end this many pixels above text.
+var padding_below_text = 6*scale;
 
 function Node() {
 	this.value = null;
@@ -108,7 +109,8 @@ Node.prototype.assign_location = function(x, y, font_size, term_lines) {
 	if (this.has_children) {
 		var left_start = x - (this.step)*((this.children.length-1)/2);
 		for (var i = 0; i < this.children.length; i++)
-			this.children[i].assign_location(left_start + i*(this.step), y + vert_space, font_size, term_lines);
+			// WARNING: This vert_space is coming from the global scope (assigned in index.html). This is why it needs scaling again here. It should be made a parameter.
+			this.children[i].assign_location(left_start + i*(this.step), y + vert_space*scale, font_size, term_lines);
 	} else {
 		if ((this.parent) && (!term_lines) && (this.parent.children.length == 1) && (!this.draw_triangle))
 			this.y = this.parent.y + padding_above_text + padding_below_text + font_size;
@@ -223,7 +225,7 @@ MovementLine.prototype.set_up = function() {
 	
 	this.dest_x = this.head.x;
 	this.dest_y = this.head.max_y;
-	this.bottom_y = this.max_y + vert_space;
+	this.bottom_y = this.max_y + vert_space*scale; // WARNING: See other vert_space warning
 	this.should_draw = 1;
 	return;
 }
@@ -268,11 +270,11 @@ MovementLine.prototype.find_intervening_height = function() {
 }
 
 MovementLine.prototype.draw = function(ctx) {
-	var tail_x = this.tail.x + 3;
-	this.dest_x -= 3;
+	var tail_x = this.tail.x + 3*scale;
+	this.dest_x -= 3*scale;
 	if (this.leftwards) {
-		tail_x -= 6;
-		this.dest_x += 6;
+		tail_x -= 6*scale;
+		this.dest_x += 6*scale;
 	}
 	
 	ctx.moveTo(tail_x, this.tail.y + padding_below_text);
@@ -281,15 +283,29 @@ MovementLine.prototype.draw = function(ctx) {
 	ctx.stroke();
 	// Arrowhead
 	ctx.beginPath();
-	ctx.lineTo(this.dest_x + 3, this.dest_y + padding_below_text + 10);
-	ctx.lineTo(this.dest_x - 3, this.dest_y + padding_below_text + 10);
+	ctx.lineTo(this.dest_x + 3*scale, this.dest_y + padding_below_text + 10*scale);
+	ctx.lineTo(this.dest_x - 3*scale, this.dest_y + padding_below_text + 10*scale);
 	ctx.lineTo(this.dest_x, this.dest_y + padding_below_text);
 	ctx.closePath();
 	ctx.fillStyle = "#000000";
 	ctx.fill();
 }
 
-function go(str, font_size, term_font, nonterm_font, vert_space, hor_space, color, term_lines) {	
+function go(str, resolution, font_size, term_font, nonterm_font, vert_space, hor_space, color, term_lines) {
+	// Update globals
+	scale = resolution;
+	padding_above_text = 6*scale; 
+	padding_below_text = 6*scale;
+	
+	// Scale the sizes
+	font_size *= scale;
+	vert_space *= scale;
+	hor_space *= scale;
+	
+	// Add font sizes to fonts
+	term_font = term_font.replace("<size>", font_size);
+	nonterm_font = nonterm_font.replace("<size>", font_size);
+	
 	// Clean up the string
 	str = str.replace(/^\s+/, "");
 	var open = 0;
@@ -349,6 +365,7 @@ function go(str, font_size, term_font, nonterm_font, vert_space, hor_space, colo
 	ctx.fillRect(0, 0, width, height);
 	ctx.fillStyle = "rgb(0, 0, 0)";
 	ctx.textAlign = "center";
+	ctx.lineWidth = scale;
 	var x_shift = Math.floor(root.left_width + margin);
 	var y_shift = Math.floor(font_size + margin);
 	ctx.translate(x_shift, y_shift);
