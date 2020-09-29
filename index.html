@@ -63,9 +63,6 @@
 								
 							</div></td>
 						</tr>
-						<tr>
-							<td align="center" colspan="2"><a href="#" id="make-link" class="btn btn-outline-secondary">Generate link</a></td>
-						</tr>
 					</table>
 				</div>
 			</div>
@@ -77,14 +74,15 @@
 			<div class="col-12">
 				<h3>Help</h3>
 				<p>Use labelled bracket notation. This app will build the tree as you type and will attempt to close any brackets that you may be missing. Save the image to your computer by right-clicking on it and selecting "Save image as". For more information, including on how to draw movement lines, visit the <a href="https://github.com/mshang/syntree/wiki">wiki</a>.</p>
+				<p>The URL of this page automatically updates to include your tree for easy sharing.</p>
 				<h3>Examples</h3>
-				<a href="?i=[NP^ Alice]">[NP^ Alice]</a><br />
-				<a href="?i=[NP [N Alice] and [N Bob]]">[NP [N Alice] and [N Bob]]</a><br />
-				<a href="?i=[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics">[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics</a><br />
-				<a href="?i=[S [X_a Movement] [Y example &lt;a&gt;]]">[S [X_a Movement] [Y example &lt;a&gt;]]</a><br />
-				<a href="?i=[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]">[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]</a><br />
-				<a href="?i=[A [A [A [A A] [A_2 A] [A [A A]]] [A_0 A]] [A [A [A [A [A A<0>] A<1>] A<2>] [A [A_1 A<3>] [A A] [A_3 A]]] A<0>">Movement 2</a><br />
-				<a href="?i=[A [A [A_0 [A A] [A A] [A [A A]]] [A A]] [A [A [A [A [A A] A] A<0>] [A [A A] [A A] [A A]]] A">Movement 3</a>
+				<a href="?ex1#[NP^ Alice]">[NP^ Alice]</a><br />
+				<a href="?ex2#[NP [N Alice] and [N Bob]]">[NP [N Alice] and [N Bob]]</a><br />
+				<a href="?ex3#[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics">[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics</a><br />
+				<a href="?ex4#[S [X_a Movement] [Y example &lt;a&gt;]]">[S [X_a Movement] [Y example &lt;a&gt;]]</a><br />
+				<a href="?ex5#[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]">[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]</a><br />
+				<a href="?ex6#[A [A [A [A A] [A_2 A] [A [A A]]] [A_0 A]] [A [A [A [A [A A<0>] A<1>] A<2>] [A [A_1 A<3>] [A A] [A_3 A]]] A<0>">Movement 2</a><br />
+				<a href="?ex7#[A [A [A_0 [A A] [A A] [A [A A]]] [A A]] [A [A [A [A [A A] A] A<0>] [A [A A] [A A] [A A]]] A">Movement 3</a>
 			</div>
 		</div>
 		<footer class="row pt-2 my-2 border-top">
@@ -131,6 +129,7 @@
 			
 			// Get the string.
 			var str = document.getElementById("i").value;
+			window.location.hash = str;
 			
 			/*$("#image-goes-here").text(str + ", " + font_size + ", " + 
 				term_font + ", " + nonterm_font + ", " + vert_space + ", " + hor_space);*/
@@ -158,7 +157,7 @@
 			$("#hor-space-slider").slider({value: 10, min: 10, max: 50, step: 5});
 			
 			try {
-				var qs = decodeURIComponent(window.location.search.slice(1));
+				var qs = decodeURIComponent(window.location.hash.slice(1));
 				qs = qs.replace(/^i=/,"");
 				qs = qs.replace(/\+/g," ");
 				if (qs == "") throw "";
@@ -173,14 +172,6 @@
 			$("#i").keydown(function() {handler(); return true;});
 			$("#i").change(function() {handler(); return true;});
 			$(".redraw").change(function() {return handler()});
-			$("#make-link").click(function() {
-				var loc = window.location.href;
-				loc = loc.replace(window.location.search, "");
-				
-				window.prompt ("Link for this tree:", loc + "?i=" +
-					encodeURIComponent(document.getElementById("i").value));
-				return false;
-			});
 			$("#resolution-slider").bind("slide", function (event, ui) {
 				handler(ui.value, null, null, null); return true;
 			});
