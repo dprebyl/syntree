@@ -33,7 +33,13 @@
 			<div id="left-col" class="col" style="flex-basis: calc(40% - 5px);"><!-- Render at correct width before split.js loads -->
 				<h1 id="title">Syntax Tree Generator</h1>
 				<div class="form-group mb-1">
-					<textarea id="i" rows="8" class="form-control">[S [NP This] [VP [V is] [^NP a wug]]]</textarea>
+					<textarea id="i" rows="8" class="form-control">[S 
+    [NP This] 
+    [VP 
+        [V is]
+        [^NP a wug]
+    ]
+]</textarea>
 				</div>
 				Insert symbol:
 				<input type="button" class="btn btn-sm btn-outline-primary insertSymbol" value="Ø" title="Silent head" data-toggle="tooltip">
