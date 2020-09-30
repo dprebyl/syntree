@@ -3,8 +3,9 @@
 This fork adds the following features over the [original version](https://github.com/mshang/syntree/) by mshang:
 
 * Modern Bootstrap 4 design
-* Two column layout allowing the full tree to be seen while editing
+* Resizable two column layout allowing the full tree to be seen while editing
 * Create higher resolution output images
+* Automatically updating sharable URL
 
 The goal of this project is to create a browser-based, fully local syntax tree generator, for drawing trees as you might find in an introductory linguistics course. Here are a few main features:
 
@@ -16,3 +17,5 @@ The goal of this project is to create a browser-based, fully local syntax tree g
 * Linkable, i.e. parses the query string.
 
 For more details, see the [wiki](https://github.com/mshang/syntree/wiki).
+
+[License](https://dprebyl.github.io/syntree/LICENSE.txt)

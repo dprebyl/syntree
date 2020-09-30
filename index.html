@@ -5,14 +5,31 @@
 	<link type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />	
 	<link type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />	
 	<style type="text/css">
+		#title {
+			/* Hide the word "Generator" when too narrow to fit on one line*/
+			overflow: hidden;
+			height: 1.3em; /* Slightly more than line-height to avoid clipping the tail of y*/
+		}
+		.gutter { 
+			background-color: #fcfcfc;
+			background-repeat: no-repeat; 
+			background-position: 50%;
+			border: 1px solid #dee2e6;
+			border-radius: .25rem;
+		}
+		.gutter.gutter-horizontal { 
+			cursor: col-resize;
+			/* https://stackoverflow.com/questions/49370421/making-columns-resizable-in-bootstrap-4 */
+			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==');
+		}
 		#image-goes-here img { max-width: 100%; }
 	</style>
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="row mt-2">
-			<div class="col-md-5 border-right">
-				<h1>Syntax Tree Generator</h1>
+			<div id="left-col" class="col" style="flex-basis: calc(40% - 5px);"><!-- Render at correct width before split.js loads -->
+				<h1 id="title">Syntax Tree Generator</h1>
 				<div class="form-group">
 					<textarea id="i" rows="8" class="form-control">[S [NP This] [VP [V is] [^NP a wug]]]</textarea>
 				</div>
@@ -66,7 +83,7 @@
 					</table>
 				</div>
 			</div>
-			<div class="col-md-7 text-center">
+			<div id="right-col" class="col text-center" style="flex-basis: calc(60% + 5px);">
 				<div id="image-goes-here" class="card d-inline-block mw-100" style="overflow: hidden"></div>
 			</div>
 		</div>
@@ -94,6 +111,7 @@
 		</footer>
 	</div>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
@@ -155,6 +173,16 @@
 			$("#font-size-slider").slider({value: 12, min: 8, max: 16, step: 1});
 			$("#vert-space-slider").slider({value: 35, min: 35, max: 70, step: 5});
 			$("#hor-space-slider").slider({value: 10, min: 10, max: 50, step: 5});
+			
+			Split(["#left-col", "#right-col"], {
+				// https://stackoverflow.com/questions/49370421/making-columns-resizable-in-bootstrap-4
+				elementStyle: function (dimension, size, gutterSize) {
+					return {'flex-basis': 'calc(' + size + '% - ' + gutterSize + 'px)'}
+				},
+				sizes: [40, 60],
+				minSize: [300, 150],
+			});
+			
 			$(function () {
 			  $('[data-toggle="tooltip"]').tooltip()
 			});

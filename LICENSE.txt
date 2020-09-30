@@ -42,3 +42,7 @@ jQuery UI v1.12.1
 Bootstrap 4.5.2
 	Copyright (c) 2018 Twitter, https://getbootstrap.com/
 	MIT license [https://getbootstrap.com/docs/4.0/about/license/]
+
+Split.js v1.6.0
+	Copyright (c) 2020 Nathan Cahill, https://split.js.org/
+	MIT license [https://github.com/nathancahill/split/blob/master/LICENSE]
