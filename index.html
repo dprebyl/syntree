@@ -59,19 +59,19 @@
 						</tr>
 						<tr>
 							<td align="left">Resolution <abbr title="Higher values produce a better looking image, but lowering this while editing can improve performance." data-toggle="tooltip" data-placement="right">(?)</abbr>:</td>
-							<td><div id="resolution-slider"></div></td>
+							<td><input type="range" id="resolution-slider" class="redraw" value="3" min="1" max="5" step=".5"></td>
 						</tr>
 						<tr>
 							<td align="left">Font size:</td>
-							<td><div id="font-size-slider"></div></td>
+							<td><input type="range" id="font-size-slider" class="redraw" value="12" min="8" max="16" step="1"></td>
 						</tr>
 						<tr>
 							<td align="left">Height:</td>
-							<td><div id="vert-space-slider"></div></td>
+							<td><input type="range" id="vert-space-slider" class="redraw" value="35" min="35" max="70" step="5"></td>
 						</tr>
 						<tr>
 							<td align="left">Width:</td>
-							<td><div id="hor-space-slider"></div></td>
+							<td><input type="range" id="hor-space-slider" class="redraw" value="10" min="10" max="50" step="5"></td>
 						</tr>
 						<tr>
 							<td align="center" colspan="2"><div class="btn-group-toggle" data-toggle="buttons">
@@ -104,22 +104,21 @@
 		</div>
 		<footer class="row pt-2 my-2 border-top">
 			<div class="col-12 text-center">
-				(C) 2011 by <a href="http://mshang.ca/">Miles Shang</a>, see <a href="LICENSE.txt">license</a>. |
-				<a href="https://github.com/mshang/syntree">Original GitHub Repository</a> |
-				<a href="https://github.com/dprebyl/syntree">Fork GitHub Repository</a>
+				<a href="https://github.com/mshang/syntree">Original GitHub repo</a> &copy; 2011 by <a href="http://mshang.ca/">Miles Shang</a> |
+				<a href="https://github.com/dprebyl/syntree">Forked GitHub repo</a> &copy; 2020 by Drake Prebyl |
+				<a href="LICENSE.txt">License</a>
 			</div>
 		</footer>
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="js/base64.js"></script>
 	<script type="text/javascript" src="js/canvas2image.js"></script>
 	<script type="text/javascript" src="js/syntree.js"></script>
 	<script type="text/javascript">
-		function handler(resolution_update, font_size_update, vert_space_update, hor_space_update) {
+		function handler() {
 		try {
 			// Initialize the various options.
 			var term_font = "";
@@ -132,14 +131,10 @@
 			if (document.getElementById("nonterm-bold").checked) nonterm_font += "bold ";
 			if (document.getElementById("color-check").checked) color = true;
 			if (document.getElementById("term-lines").checked) term_lines = true;
-			resolution = $("#resolution-slider").slider("option", "value");
-			font_size = $("#font-size-slider").slider("option", "value");
-			vert_space = $("#vert-space-slider").slider("option", "value");
-			hor_space = $("#hor-space-slider").slider("option", "value");
-			if (resolution_update) resolution = resolution_update;
-			if (font_size_update) font_size = font_size_update;
-			if (vert_space_update) vert_space = vert_space_update;
-			if (hor_space_update) hor_space = hor_space_update;
+			resolution = document.getElementById("resolution-slider").value;
+			font_size = document.getElementById("font-size-slider").value;
+			vert_space = document.getElementById("vert-space-slider").value;
+			hor_space = document.getElementById("hor-space-slider").value;
 			term_font += "<size>pt "; // Size will be inserted here in go
 			nonterm_font += "<size>pt ";
 			term_font = term_font + $('input:radio[name=font-style]:checked').val();
@@ -157,23 +152,12 @@
 			$("#image-goes-here").append(img);
 			
 		} catch (err) {
-			if (debug) {
-				throw(err);
-			} else { 
-				if (err == "canvas")
-					$("#image-goes-here").text("Browser not supported.");
-			}
+			if (debug) throw(err);
 		} // try-catch
 		return false;
 		} // handler()
 
-		$(function() {
-			// UI
-			$("#resolution-slider").slider({value: 3, min: 1, max: 5, step: 0.5});
-			$("#font-size-slider").slider({value: 12, min: 8, max: 16, step: 1});
-			$("#vert-space-slider").slider({value: 35, min: 35, max: 70, step: 5});
-			$("#hor-space-slider").slider({value: 10, min: 10, max: 50, step: 5});
-			
+		$(function() {			
 			Split(["#left-col", "#right-col"], {
 				// https://stackoverflow.com/questions/49370421/making-columns-resizable-in-bootstrap-4
 				elementStyle: function (dimension, size, gutterSize) {
@@ -202,19 +186,8 @@
 			$("#i").keyup(function() {handler(); return true;});
 			$("#i").keydown(function() {handler(); return true;});
 			$("#i").change(function() {handler(); return true;});
-			$(".redraw").change(function() {return handler()});
-			$("#resolution-slider").bind("slide", function (event, ui) {
-				handler(ui.value, null, null, null); return true;
-			});
-			$("#font-size-slider").bind("slide", function (event, ui) {
-				handler(null, ui.value, null, null); return true;
-			});
-			$("#vert-space-slider").bind("slide", function (event, ui) {
-				handler(null, null, ui.value, null); return true;
-			});
-			$("#hor-space-slider").bind("slide", function (event, ui) {
-				handler(null, null, null, ui.value); return true;
-			});
+			$(".redraw:not(input[type=range])").change(function() {return handler()});
+			$("input[type=range].redraw").on("input", function() {return handler()});
 		});
 	</script>
 </body>
