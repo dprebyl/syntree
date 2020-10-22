@@ -121,13 +121,13 @@
 				<p>Use labelled bracket notation. This app will build the tree as you type and will attempt to close any brackets that you may be missing. Save the image to your computer by right-clicking on it and selecting "Save image as". For more information, including on how to draw movement lines, visit the <a href="https://github.com/mshang/syntree/wiki">wiki</a>.</p>
 				<p>The URL of this page automatically updates to include your tree for easy sharing.</p>
 				<h3>Examples</h3>
-				<a class="example" href="?ex1#[NP^ Alice]">[NP^ Alice]</a><br />
-				<a class="example" href="?ex2#[NP [N Alice] and [N Bob]]">[NP [N Alice] and [N Bob]]</a><br />
-				<a class="example" href="?ex3#[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics">[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics</a><br />
-				<a class="example" href="?ex4#[S [X_a Movement] [Y example &lt;a&gt;]]">[S [X_a Movement] [Y example &lt;a&gt;]]</a><br />
-				<a class="example" href="?ex5#[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]">[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]</a><br />
-				<a class="example" href="?ex6#[A [A [A [A A] [A_2 A] [A [A A]]] [A_0 A]] [A [A [A [A [A A<0>] A<1>] A<2>] [A [A_1 A<3>] [A A] [A_3 A]]] A<0>">Movement 2</a><br />
-				<a class="example" href="?ex7#[A [A [A_0 [A A] [A A] [A [A A]]] [A A]] [A [A [A [A [A A] A] A<0>] [A [A A] [A A] [A A]]] A">Movement 3</a>
+				<a class="example" href="#[NP^ Alice]">[NP^ Alice]</a><br />
+				<a class="example" href="#[NP [N Alice] and [N Bob]]">[NP [N Alice] and [N Bob]]</a><br />
+				<a class="example" href="#[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics">[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics</a><br />
+				<a class="example" href="#[S [X_a Movement] [Y example &lt;a&gt;]]">[S [X_a Movement] [Y example &lt;a&gt;]]</a><br />
+				<a class="example" href="#[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]">[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]</a><br />
+				<a class="example" href="#[A [A [A [A A] [A_2 A] [A [A A]]] [A_0 A]] [A [A [A [A [A A<0>] A<1>] A<2>] [A [A_1 A<3>] [A A] [A_3 A]]] A<0>">Movement 2</a><br />
+				<a class="example" href="#[A [A [A_0 [A A] [A A] [A [A A]]] [A A]] [A [A [A [A [A A] A] A<0>] [A [A A] [A A] [A A]]] A">Movement 3</a>
 			</div>
 		</div>
 		<footer class="row pt-2 my-2 border-top">
@@ -169,10 +169,7 @@
 			
 			// Get the string.
 			var str = document.getElementById("i").value;
-			window.location.hash = str;
-			
-			/*$("#image-goes-here").text(str + ", " + font_size + ", " + 
-				term_font + ", " + nonterm_font + ", " + vert_space + ", " + hor_space);*/
+			window.location.hash = encodeURIComponent(str);
 			
 			var img = go(str, resolution, font_size, term_font, nonterm_font, vert_space, hor_space, color, term_lines);
 			$("#image-goes-here").empty();
@@ -200,8 +197,6 @@
 			
 			try {
 				var qs = decodeURIComponent(window.location.hash.slice(1));
-				qs = qs.replace(/^i=/,"");
-				qs = qs.replace(/\+/g," ");
 				if (qs == "") throw "";
 				document.getElementById("i").value = qs;
 			} catch (err) {}
