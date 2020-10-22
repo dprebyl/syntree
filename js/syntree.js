@@ -408,8 +408,11 @@ function parse(str) {
 				n.tail = tail;
 				return " ";
 			});
-		str = str.replace(/^\s+/, "");
-		str = str.replace(/\s+$/, "");
+		str = str.replace(/^\s+/, ""); // Remove leading whitespace
+		str = str.replace(/\s+$/, ""); // Remove trailing whitespace
+		str = str.replace(/\\0/g, "Ø"); // Empty head substution
+		str = str.replace(/{/g, "["); // Bracket substitution
+		str = str.replace(/}/g, "]"); // Bracket substitution
 		n.value = str;
 		return n;
 	}
