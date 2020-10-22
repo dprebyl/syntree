@@ -6,6 +6,7 @@ var scale = 2; // Global scale factor of image
 var margin = 15*scale; // Number of pixels from tree to edge on each side.
 var padding_above_text = 6*scale; // Lines will end this many pixels above text.
 var padding_below_text = 6*scale;
+var render_subscripts = false;
 
 function Node() {
 	this.value = null;
@@ -291,11 +292,12 @@ MovementLine.prototype.draw = function(ctx) {
 	ctx.fill();
 }
 
-function go(str, resolution, font_size, term_font, nonterm_font, vert_space, hor_space, color, term_lines) {
-	// Update globals
+function go(str, resolution, font_size, term_font, nonterm_font, vert_space, hor_space, color, term_lines, subscripts) {
+	// Update globals (these probably shouldn't be globals)
 	scale = resolution;
 	padding_above_text = 6*scale; 
 	padding_below_text = 6*scale;
+	render_subscripts = subscripts;
 	
 	// Scale the sizes
 	font_size *= scale;
@@ -382,16 +384,16 @@ function subscriptify(in_str) {
 	var out_str = "";
 	for (var i = 0; i < in_str.length; ++i) {
 		switch (in_str[i]) {
-		case "0": out_str = out_str + "₀"; break;
-		case "1": out_str = out_str + "₁"; break;
-		case "2": out_str = out_str + "₂"; break;
-		case "3": out_str = out_str + "₃"; break;
-		case "4": out_str = out_str + "₄"; break;
-		case "5": out_str = out_str + "₅"; break;
-		case "6": out_str = out_str + "₆"; break;
-		case "7": out_str = out_str + "₇"; break;
-		case "8": out_str = out_str + "₈"; break;
-		case "9": out_str = out_str + "₉"; break;
+			case "0": out_str += "₀"; break;
+			case "1": out_str += "₁"; break;
+			case "2": out_str += "₂"; break;
+			case "3": out_str += "₃"; break;
+			case "4": out_str += "₄"; break;
+			case "5": out_str += "₅"; break;
+			case "6": out_str += "₆"; break;
+			case "7": out_str += "₇"; break;
+			case "8": out_str += "₈"; break;
+			case "9": out_str += "₉"; break;
 		}
 	}
 	return out_str;
@@ -428,7 +430,7 @@ function parse(str) {
 	n.value = n.value.replace(/_(\w+)$/,
 		function(match, label) {
 			n.label = label;
-			if (n.label.search(/^\d+$/) != -1)
+			if (render_subscripts && n.label.search(/^\d+$/) != -1)
 				return subscriptify(n.label);
 			return "";
 		});
