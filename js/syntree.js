@@ -416,24 +416,41 @@ function parse(str) {
 		str = str.replace(/{/g, "["); // Bracket substitution
 		str = str.replace(/}/g, "]"); // Bracket substitution
 		n.value = str;
+		
+		// Check for movement destination
+		n.value = n.value.replace(/_(\w+)$/,
+			function(match, label) {
+				n.label = label;
+				if (render_subscripts && n.label.search(/^\d+$/) != -1)
+					return subscriptify(n.label);
+				return "";
+			}
+		);
+		
 		return n;
 	}
 
 	var i = 1;
 	while ((str[i] != " ") && (str[i] != "[") && (str[i] != "]")) i++;
-	n.value = str.substr(1, i-1)
+	n.value = str.substr(1, i-1) // Remove brackets from text of node
+	
+	// Check for triangle
 	n.value = n.value.replace(/\^/, 
 		function () {
 			n.starred = true;
 			return "";
-		});
+		}
+	);
+	
+	// Check for movement destination
 	n.value = n.value.replace(/_(\w+)$/,
 		function(match, label) {
 			n.label = label;
 			if (render_subscripts && n.label.search(/^\d+$/) != -1)
 				return subscriptify(n.label);
 			return "";
-		});
+		}
+	);
 	
 	while (str[i] == " ") i++;
 	if (str[i] != "]") {
