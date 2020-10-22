@@ -286,7 +286,7 @@ MovementLine.prototype.draw = function(ctx) {
 	ctx.beginPath();
 	ctx.lineTo(this.dest_x + 3*scale, this.dest_y + padding_below_text + 10*scale);
 	ctx.lineTo(this.dest_x - 3*scale, this.dest_y + padding_below_text + 10*scale);
-	ctx.lineTo(this.dest_x, this.dest_y + padding_below_text);
+	ctx.lineTo(this.dest_x, this.dest_y + padding_below_text - scale);
 	ctx.closePath();
 	ctx.fillStyle = "#000000";
 	ctx.fill();
