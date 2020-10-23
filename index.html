@@ -195,6 +195,17 @@
 		} // try-catch
 		return false;
 		} // handler()
+		
+		function insertText(textarea, text) {
+			// Try using execCommand, fallback to editing value if it doesn't work (i.e. Firefox)
+			// Adapted from https://stackoverflow.com/questions/6637341/use-tab-to-indent-in-textarea
+			if (!document.execCommand('insertText', false, text)) {
+				var start = textarea.selectionStart;
+				var end = textarea.selectionEnd;
+				textarea.value = textarea.value.substring(0, start) + text + textarea.value.substring(end);
+				textarea.selectionStart = textarea.selectionEnd = start + text.length;
+			}
+		}
 
 		$(function() {			
 			Split(["#left-col", "#right-col"], {
@@ -218,13 +229,21 @@
 			
 			handler();
 			
-			// Allow typing tabs
-			// https://stackoverflow.com/questions/44471699/how-to-make-undo-work-in-an-html-textarea-after-setting-the-value
-			$("#i").keydown(function(e) {console.log(e);
-				const cursor = e.target.selectionStart;
-				if(e.key == "Tab") {
+			
+			$("#i").keydown(function(e) {
+				if (e.key == "Tab") {
+					// Allow typing tabs
+					// https://stackoverflow.com/questions/44471699/how-to-make-undo-work-in-an-html-textarea-after-setting-the-value
+					insertText(e.target, "\t");
 					e.preventDefault();
-					document.execCommand("insertText", false, '\t');
+				} else if (event.key == "Enter") {
+					// Match indentation of previous line
+					// https://stackoverflow.com/questions/21715412/how-do-you-keep-the-tab-level-in-a-textarea-when-pressing-enter
+					var start = e.target.selectionStart;
+					var currentLine = this.value.slice(0, start).split('\n').pop();
+					var newlineIndent = '\n' + currentLine.match(/^\s*/)[0];
+					insertText(e.target, newlineIndent);
+					e.preventDefault();
 				}
 			});
 			
