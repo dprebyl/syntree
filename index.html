@@ -12,6 +12,9 @@
 			overflow: hidden;
 			height: 1.3em; /* Slightly more than line-height to avoid clipping the tail of y*/
 		}
+		textarea {
+			tab-size: 4;
+		}
 		.gutter { 
 			background-color: #fcfcfc;
 			background-repeat: no-repeat; 
@@ -50,11 +53,11 @@
 				<h1 id="title">Syntax Tree Generator</h1>
 				<div class="form-group mb-1">
 					<textarea id="i" rows="12" class="form-control">[S 
-    [NP This] 
-    [VP 
-        [V is]
-        [^NP a wug]
-    ]
+	[NP This] 
+	[VP 
+		[V is]
+		[^NP a wug]
+	]
 ]</textarea>
 				</div>
 				<b>Key combos:</b>
@@ -128,7 +131,7 @@
 			<div class="col-12">
 				<h3>Help</h3>
 				<p>Use labelled bracket notation. This app will build the tree as you type and will attempt to close any brackets that you may be missing. Save the image to your computer by right-clicking on it and selecting "Save image as". For more information, including on how to draw movement lines, visit the <a href="https://github.com/mshang/syntree/wiki">wiki</a>.</p>
-				<p>The URL of this page automatically updates to include your tree for easy sharing.</p>
+				<p>The URL of this page automatically updates to include your tree for easy sharing. To help organize your tree, you can indent lines using the tab key.</p>
 				<h3>Examples</h3>
 				<a class="example" href="#[NP^ Alice]">[NP^ Alice]</a><br />
 				<a class="example" href="#[NP [N Alice] and [N Bob]]">[NP [N Alice] and [N Bob]]</a><br />
@@ -215,10 +218,18 @@
 			
 			handler();
 			
-			// Events
-			$("#i").keypress(function() {handler(); return true;});
-			$("#i").keyup(function() {handler(); return true;});
-			$("#i").keydown(function() {handler(); return true;});
+			// Allow typing tabs
+			// https://stackoverflow.com/questions/44471699/how-to-make-undo-work-in-an-html-textarea-after-setting-the-value
+			$("#i").keydown(function(e) {console.log(e);
+				const cursor = e.target.selectionStart;
+				if(e.key == "Tab") {
+					e.preventDefault();
+					document.execCommand("insertText", false, '\t');
+				}
+			});
+			
+			// Events to redraw tree
+			$("#i").keyup(function() {handler(); return true;}); /// keyup event happens after value of textarea changes
 			$("#i").change(function() {handler(); return true;});
 			$(".redraw:not(input[type=range])").change(function() {return handler()});
 			$("input[type=range].redraw").on("input", function() {return handler()});
