@@ -309,7 +309,8 @@ function go(str, resolution, font_size, term_font, nonterm_font, vert_space, hor
 	nonterm_font = nonterm_font.replace("<size>", font_size);
 	
 	// Clean up the string
-	str = str.replace(/^\s+/, "");
+	str = str.replace(/^\s+/, ""); // Remove leading whitespace
+	str = str.replace(/\s+/g, " "); // Replace consecutive whitespaces with a single space
 	var open = 0;
 	for (var i = 0; i < str.length; i++) {
 		if (str[i] == "[") open++;
