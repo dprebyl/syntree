@@ -1,4 +1,6 @@
-Copyright (C) 2011 by Miles Shang <mail@mshang.ca>
+Original source Copyright (C) 2011 by Miles Shang <mail@mshang.ca>
+Modifications Copyright (C) 2020 by Drake Prebyl
+Example trees Copyright (C) 2020 by John Gluckman https://syntax.pressbooks.com/
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
