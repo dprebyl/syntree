@@ -44,6 +44,9 @@
 			position: sticky;
 			top: .5rem;
 		}
+		.example {
+			margin-left: 0.5em;
+		}
 	</style>
 </head>
 <body>
@@ -132,7 +135,28 @@
 				<h3>Help</h3>
 				<p>Use labelled bracket notation. This app will build the tree as you type and will attempt to close any brackets that you may be missing. Save the image to your computer by right-clicking on it and selecting "Save image as". For more information, including on how to draw movement lines, visit the <a href="https://github.com/mshang/syntree/wiki">wiki</a>.</p>
 				<p>The URL of this page automatically updates to include your tree for easy sharing. To help organize your tree, you can indent lines using the tab key.</p>
-				<h3>Examples</h3>
+				<h3>Examples from textbook</h3>
+				Chapter 3:
+				<a class="example" href="#%5BN%0A%09%5BN%0A%09%09%5BN%20rice%5D%0A%09%09%5BN%20pot%5D%0A%09%5D%0A%09%5BN%20rack%5D%0A%5D">rice pot rack</a>
+				<a class="example" href="#%5BS%20%0A%09%5BDP%0A%09%09%5BD%20the%5D%0A%09%09%5BA%20tired%5D%0A%09%09%5BN%20doctor%5D%0A%09%5D%0A%09%5BV%20slept%5D%0A%5D">the tired doctor slept</a>
+				<br>
+				Chapter 4:
+				<a class="example" href="#%5BS%0A%09%5BNP%0A%09%09%5BN%20mti%5D%0A%09%09%5BAP%0A%09%09%09%5BA%20mkubwa%5D%0A%09%09%5D%0A%09%09%5BPP%0A%09%09%09%5BP%20kwenye%5D%0A%09%09%09%5BNP%0A%09%09%09%09%5BN%20kilima%5D%0A%09%09%09%5D%0A%09%09%5D%0A%09%5D%0A%09%5BVP%0A%09%09%5BV%20ulianguka%5D%0A%09%5D%0A%5D">mti mkubwa kwenye kilima ulianguka</a>
+				<br>
+				Chapter 5: 
+				<a class="example" href="#%5BCP%0A%09%5BC%20%5C0%5D%0A%09%5BTP%20%0A%09%09%5BDP%0A%09%09%09%5BD%20%5C0%5D%0A%09%09%09%5BNP%0A%09%09%09%09%5BN%20Mary%5D%0A%09%09%09%5D%0A%09%09%5D%0A%09%09%5BT%20%7Bpast%7D%5D%0A%09%09%5BVP%0A%09%09%09%5BV%20ate%5D%0A%09%09%09%5BDP%0A%09%09%09%09%5BD%20%5C0%5D%0A%09%09%09%09%5BNP%0A%09%09%09%09%09%5BN%20churros%5D%0A%09%09%09%09%5D%0A%09%09%09%5D%0A%09%09%5D%0A%09%5D%0A%5D">Mary ate churros</a>
+				<a class="example" href="#%5BCP%0A%09%5BC%20%5C0%5D%0A%09%5BTP%20%0A%09%09%5BCP%5E%0A%09%09%09that%20Erin%20lies%20sushi%0A%09%09%5D%0A%09%09%5BT%20%7Bpast%7D%5D%0A%09%09%5BVP%0A%09%09%09%5BV%20surprised%5D%0A%09%09%09%5BDP%0A%09%09%09%09%5BD%20me%5D%0A%09%09%09%5D%0A%09%09%5D%0A%09%5D%0A%5D">that Erin lies sushi surprised me</a>
+				<br>
+				Chapter 6:
+				<a class="example" href="#%5BCP%0A%09%5BC%20%5C0%5D%0A%09%5BTP%0A%09%09%5BDP%0A%09%09%09%5BD%20the%5D%0A%09%09%09%5BNP%0A%09%09%09%09%5BN%20doctor%5D%0A%09%09%09%5D%0A%09%09%5D%0A%09%09%5BT%20will%5D%0A%09%09%5BVP%0A%09%09%09%5BV%20sing%5D%0A%09%09%09%5BDP%0A%09%09%09%09%5BD%20a%5D%0A%09%09%09%09%5BNP%20%5BN%20song%5D%5D%0A%09%09%09%5D%0A%09%09%09%5BPP%0A%09%09%09%09%5BP%20in%5D%0A%09%09%09%09%5BDP%0A%09%09%09%09%09%5BD%20the%5D%0A%09%09%09%09%09%5BNP%20%5BN%20park%5D%5D%0A%09%09%09%09%5D%0A%09%09%09%5D%0A%09%09%5D%0A%09%5D%0A%5D">the doctor will sing a song in the park (PSG)</a>
+				<a class="example" href="#%5BCP%20%5BC'%0A%09%5BC%20%5C0%5D%0A%09%5BTP%0A%09%09%5BDP%20%5BD'%0A%09%09%09%5BD%20the%5D%0A%09%09%09%5BNP%20%5BN'%0A%09%09%09%09%5BAP%20%5BA'%20%5BA%20tired%5D%5D%5D%0A%09%09%09%09%5BN%20doctor%5D%0A%09%09%09%5D%5D%0A%09%09%5D%5D%0A%09%09%5BT'%0A%09%09%09%5BT%20%7Bpast%7D%5D%0A%09%09%09%5BVP%20%5BV'%0A%09%09%09%09%5BV'%0A%09%09%09%09%09%5BV%20cured%5D%0A%09%09%09%09%09%5BDP%20%5BD'%0A%09%09%09%09%09%09%5BD%20the%5D%0A%09%09%09%09%09%09%5BNP%20%5BN'%0A%09%09%09%09%09%09%09%5BAP%20%5BA'%20%5BA%20sick%5D%5D%5D%0A%09%09%09%09%09%09%09%5BN'%20%5BN%20patient%5D%5D%0A%09%09%09%09%09%09%5D%5D%0A%09%09%09%09%09%5D%5D%0A%09%09%09%09%5D%0A%09%09%09%09%5BAdvP%20%5BAdv'%20%5BAdv%20yesterday%5D%5D%5D%0A%09%09%09%5D%5D%0A%09%09%5D%0A%09%5D%0A%5D%5D">the tired doctor cured the sick patient yesterday (X-bar)</a>
+				<a class="example" href="#%5BDP%0A%09%5BDP%0A%09%09%5BD'%0A%09%09%09%5BD%20the%5D%0A%09%09%09%5BNP%0A%09%09%09%09%5BN'%0A%09%09%09%09%09%5BN%20mailman%5D%0A%09%09%09%09%5D%0A%09%09%09%5D%0A%09%09%5D%0A%09%5D%0A%09%5BD'%0A%09%09%5BD%20's%5D%0A%09%09%5BNP%0A%09%09%09%5BN'%0A%09%09%09%09%5BN%20bag%5D%0A%09%09%09%5D%0A%09%09%5D%0A%09%5D%0A%5D">the mailman's bag</a>
+				<br>
+				Chapter 7:
+				<a class="example" href="#%5BCP%20%5BC'%0A%09%5BC%20%5C0%5D%0A%09%5BTP%0A%09%09%5BDP%5E%20Sarah%5D%0A%09%09%5BT'%0A%09%09%09tT<1>%0A%09%09%09%5BVP%20%5BV'%0A%09%09%09%09%5BAdvP%20%5BAdv'%20%5BAdv%20often%5D%5D%5D%0A%09%09%09%09%5BV'%0A%09%09%09%09%09%5BV%2BT_1%20walk%2B%7Bpast%7D%5D%0A%09%09%09%09%09%5BDP%5E%20home%5D%0A%09%09%09%09%5D%0A%09%09%09%5D%5D%0A%09%09%5D%0A%09%5D%0A%5D%5D">Sarah often walked home</a>
+				<a class="example" href="#%5BCP%20%5BC'%0A%09%5BC%20%5C0%5D%0A%09%5BTP%0A%09%09%5BDP%5E%20Sarah%5D%0A%09%09%5BT'%0A%09%09%09%5BV%2BT_1%20mange%2B%7Bpres%7D%5D%0A%09%09%09%5BVP%20%5BV'%0A%09%09%09%09%5BAdvP%20%5BAdv'%20%5BAdv%20souvent%5D%5D%5D%0A%09%09%09%09%5BV'%0A%09%09%09%09%09tV<1>%0A%09%09%09%09%09%5BDP%5E%20des%20fruits%5D%0A%09%09%09%09%5D%0A%09%09%09%5D%5D%0A%09%09%5D%0A%09%5D%0A%5D%5D">Sarah souvent des fruits</a>
+				<a class="example" href="#%5BCP%20%5BC'%0A%09%5BC%2BV%2BT_2%20%5C0%2BBE%2B%7Bpres%7D%5D%0A%09%5BTP%0A%09%09%5BDP%5E%20Sarah%5D%0A%09%09%5BT'%0A%09%09%09tT<2>_1%0A%09%09%09%5BVP%20%5BV'%0A%09%09%09%09tV<1>%0A%09%09%09%09%5BVP%0A%09%09%09%09%09%5BV'%0A%09%09%09%09%09%09%5BV%20eating%5D%0A%09%09%09%09%09%09%5BDP%5E%20fruit%5D%0A%09%09%09%09%09%5D%0A%09%09%09%09%5D%0A%09%09%09%5D%5D%0A%09%09%5D%0A%09%5D%0A%5D%5D">Is Sarah eating fruit?</a>
+				<!--
 				<a class="example" href="#[NP^ Alice]">[NP^ Alice]</a><br />
 				<a class="example" href="#[NP [N Alice] and [N Bob]]">[NP [N Alice] and [N Bob]]</a><br />
 				<a class="example" href="#[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics">[S[NP[N Alice]][VP[V is][NP[N'[N a student][PP^ of physics</a><br />
@@ -140,6 +164,7 @@
 				<a class="example" href="#[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]">[CP [NP^_1 What] [C' [C_b did] [IP_2 [NP^ you] [I' [I tr&lt;b&gt;] [VP [V' [V eat] tr&lt;1&gt;]]]]]]</a><br />
 				<a class="example" href="#[A [A [A [A A] [A_2 A] [A [A A]]] [A_0 A]] [A [A [A [A [A A<0>] A<1>] A<2>] [A [A_1 A<3>] [A A] [A_3 A]]] A<0>">Movement 2</a><br />
 				<a class="example" href="#[A [A [A_0 [A A] [A A] [A [A A]]] [A A]] [A [A [A [A [A A] A] A<0>] [A [A A] [A A] [A A]]] A">Movement 3</a>
+				-->
 			</div>
 		</div>
 		<footer class="row pt-2 my-2 border-top">
