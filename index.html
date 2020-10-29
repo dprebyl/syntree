@@ -54,8 +54,9 @@
 		<div class="row mt-2">
 			<div id="left-col" class="col" style="flex-basis: calc(40% - 5px);"><!-- Render at correct width before split.js loads -->
 				<h1 id="title">Syntax Tree Generator</h1>
-				<div class="form-group mb-1">
-					<textarea id="i" rows="12" class="form-control">[S 
+				<input id="tree-title" type="text" class="form-control form-control-sm mb-1" placeholder="Title (optional)">
+				<div class="mb-1">
+					<textarea id="i" rows="16" class="form-control">[S 
 	[NP This] 
 	[VP 
 		[V is]
@@ -211,7 +212,9 @@
 			var str = document.getElementById("i").value;
 			window.location.hash = encodeURIComponent(str);
 			
-			var img = go(str, resolution, font_size, term_font, nonterm_font, vert_space, hor_space, color, term_lines, subscripts);
+			var title = document.getElementById("tree-title").value;
+			
+			var img = go(str, title, resolution, font_size, term_font, nonterm_font, vert_space, hor_space, color, term_lines, subscripts);
 			$("#image-goes-here").empty();
 			$("#image-goes-here").append(img);
 			
@@ -277,6 +280,7 @@
 			$("#i").change(function() {handler(); return true;});
 			$(".redraw:not(input[type=range])").change(function() {return handler()});
 			$("input[type=range].redraw").on("input", function() {return handler()});
+			$("#tree-title").on("input", function() {return handler()});
 			
 			$(".example").click(function(e) {
 				var link = e.target.href;

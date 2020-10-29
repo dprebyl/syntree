@@ -292,7 +292,7 @@ MovementLine.prototype.draw = function(ctx) {
 	ctx.fill();
 }
 
-function go(str, resolution, font_size, term_font, nonterm_font, vert_space, hor_space, color, term_lines, subscripts) {
+function go(str, title, resolution, font_size, term_font, nonterm_font, vert_space, hor_space, color, term_lines, subscripts) {
 	// Update globals (these probably shouldn't be globals)
 	scale = resolution;
 	padding_above_text = 6*scale; 
@@ -364,8 +364,20 @@ function go(str, resolution, font_size, term_font, nonterm_font, vert_space, hor
 	canvas.id = "canvas";
 	canvas.width = width;
 	canvas.height = height;
+	
+	// Draw background
 	ctx.fillStyle = "rgb(255, 255, 255)";
 	ctx.fillRect(0, 0, width, height);
+	
+	// Draw title
+	ctx.fillStyle = "black";
+	ctx.font = "bold " + (font_size*1.5) + "pt sans-serif";
+	ctx.textBaseline = "top";
+	ctx.translate(0, 0);
+	ctx.fillText(title, margin/2, margin/2);
+	ctx.textBaseline = "alphabetic"; // Default
+	
+	// Draw tree
 	ctx.fillStyle = "rgb(0, 0, 0)";
 	ctx.textAlign = "center";
 	ctx.lineWidth = scale;
